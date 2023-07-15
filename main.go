@@ -1,26 +1,18 @@
 package main
 
-import ("log"
-"errors")
+import (
+	"fmt"
+	"net/http"
 
-func main() {
+)
+const portNumber = "localhost:8080"
 
-	result,err := divide(100.0,0.0)
-	if err != nil {
-		log.Println(err)
-		return
-	}
-	log.Println("result of division is",result)
 
-}
+func main(){
+     
+	http.HandleFunc("/",Home)
+	http.HandleFunc("/about",About)
+	fmt.Println(fmt.Sprintf("Starting application on port %s",portNumber))
+	_= http.ListenAndServe(portNumber , nil)
 
-func divide(x, y float32) (float32, error) {
-	var result float32
-
-if y == 0 {
-		return result, errors.New("cannot divide by 0")
-	}
-	result = x / y
-
-	return result, nil
 }
